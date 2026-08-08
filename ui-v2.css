@@ -1174,3 +1174,109 @@ footer{margin-top:12px !important;padding:8px !important;font-size:8px !importan
   .dashboard{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
   .vendor-workspace{grid-template-columns:minmax(0,1.45fr) minmax(220px,1fr) !important;}
 }
+
+/* =========================================================
+   IVIP FINAL PATCH — FORCE DESKTOP COMPOSITION
+   Vendor Database + Vendor Detail MUST be side-by-side.
+   KPI row is intentionally compact.
+========================================================= */
+
+/* KPI: smaller and tighter */
+.kpi,
+section.kpi{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:7px !important;
+  margin-bottom:8px !important;
+}
+.kpi .card,
+.kpi-card{
+  min-height:52px !important;
+  height:52px !important;
+  padding:7px 9px !important;
+  border-radius:8px !important;
+  gap:7px !important;
+}
+.kpi-card .kpi-icon{
+  width:24px !important;
+  height:24px !important;
+  min-width:24px !important;
+  border-radius:7px !important;
+}
+.kpi-card .kpi-icon svg{width:12px !important;height:12px !important;}
+.kpi-content h4{font-size:7.5px !important;margin:0 0 1px !important;line-height:1.1 !important;}
+.kpi-content h2{font-size:16px !important;margin:0 !important;line-height:1 !important;}
+.kpi-content span{font-size:6px !important;line-height:1 !important;}
+
+/* FORCE Vendor Database + Vendor Detail onto ONE ROW */
+section.vendor-workspace{
+  display:flex !important;
+  flex-direction:row !important;
+  flex-wrap:nowrap !important;
+  align-items:flex-start !important;
+  gap:10px !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+section.vendor-workspace > .vendor-left{
+  display:block !important;
+  flex:1.55 1 0 !important;
+  width:auto !important;
+  max-width:none !important;
+  min-width:0 !important;
+  margin:0 !important;
+}
+
+section.vendor-workspace > .vendor-right{
+  display:block !important;
+  flex:1 1 0 !important;
+  width:auto !important;
+  max-width:none !important;
+  min-width:0 !important;
+  margin:0 !important;
+}
+
+section.vendor-workspace > .vendor-left > .panel,
+section.vendor-workspace > .vendor-right > .panel{
+  width:100% !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+}
+
+/* Keep detail content compact so both panels fit comfortably */
+section.vendor-workspace .detail-grid{
+  grid-template-columns:1fr 1fr !important;
+  gap:5px !important;
+}
+section.vendor-workspace .detail-grid input,
+section.vendor-workspace .detail-grid select,
+section.vendor-workspace .detail-grid textarea{
+  min-width:0 !important;
+  font-size:8px !important;
+  padding:6px 7px !important;
+}
+
+/* Do NOT allow responsive rules to stack these two panels */
+@media (max-width:1200px){
+  section.vendor-workspace{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+  }
+  section.vendor-workspace > .vendor-left{flex:1.55 1 0 !important;}
+  section.vendor-workspace > .vendor-right{flex:1 1 0 !important;}
+}
+@media (max-width:768px){
+  section.vendor-workspace{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+  }
+  section.vendor-workspace > .vendor-left,
+  section.vendor-workspace > .vendor-right{
+    width:auto !important;
+    min-width:0 !important;
+  }
+}
