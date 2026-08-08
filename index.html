@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IVIP | Iraq Vendor Intelligence Platform</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ui-v2.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+</head>
+
+
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+    <div class="logo-icon">
+        <i data-lucide="shield-check"></i>
+    </div>
+
+    <div class="logo-text">
+        <h2>IVIP</h2>
+        <p>Vendor Intelligence</p>
+    </div>
+
+</div>
+
+
+<nav>
+
+<ul>
+
+<li class="active">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Dashboard</span>
+</li>
+
+<li>
+    <i data-lucide="building-2"></i>
+    <span>Companies</span>
+</li>
+
+<li>
+    <i data-lucide="clipboard-list"></i>
+    <span>Survey</span>
+</li>
+
+<li>
+    <i data-lucide="folder-open"></i>
+    <span>Documents</span>
+</li>
+
+<li>
+    <i data-lucide="newspaper"></i>
+    <span>News</span>
+</li>
+
+<li>
+    <i data-lucide="bar-chart-3"></i>
+    <span>Reports</span>
+</li>
+
+<li>
+    <i data-lucide="settings"></i>
+    <span>Settings</span>
+</li>
+</ul>
+
+</nav>
+
+</div>
+
+
+
+<!-- Main Content -->
+
+<div class="content">
+
+<header class="top-header">
+
+    <div class="title">
+
+        <h1>Dashboard</h1>
+
+        <p>Iraq Vendor Intelligence Platform</p>
+
+    </div>
+
+    <div class="header-right">
+
+        <button class="icon-btn">
+            <i data-lucide="bell"></i>
+        </button>
+
+        <button class="icon-btn">
+            <i data-lucide="search"></i>
+        </button>
+
+        <div class="user-box">
+
+            <div class="avatar">P</div>
+
+            <div>
+                <strong>Mr.Park</strong><br>
+                <span>Administrator</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<div class="top-menu">
+
+
+<input
+type="text"
+placeholder="Search Company..."
+id="searchBox">
+
+
+<div class="profile">
+
+👤 Park
+
+</div>
+
+
+</div>
+
+
+</header>
+
+
+
+
+<!-- KPI Section -->
+
+
+<section class="kpi">
+
+    <div class="card kpi-card">
+        <h4>Total Vendors</h4>
+        <h2 id="totalVendor">0</h2>
+        <span>Registered Companies</span>
+    </div>
+
+    <div class="card kpi-card">
+        <h4>Survey Completed</h4>
+        <h2 id="reviewVendor">0</h2>
+        <span>Under Evaluation</span>
+    </div>
+
+    <div class="card orange">
+        <h4>Pending</h4>
+        <h2 id="pendingVendor">0</h2>
+        <span>Waiting Review</span>
+    </div>
+
+    <div class="card purple">
+        <h4>Approved Vendors</h4>
+        <h2 id="approvedVendor">0</h2>
+        <span>Ready for Tender</span>
+    </div>
+
+</section>
+
+
+
+
+
+<!-- Dashboard Area -->
+
+
+<section class="dashboard">
+
+    <div class="left-panel">
+
+        <div class="panel">
+            <h3>Survey Progress</h3>
+
+            <div class="chart-box">
+                <canvas id="surveyChart"></canvas>
+            </div>
+
+        </div>
+<div class="panel">
+
+   
+
+<div class="panel">
+
+
+<h3>Recent Companies</h3>
+
+
+<div id="recentCompanies">
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="right-panel">
+
+
+<div class="panel">
+
+
+<h3>Latest Iraq Construction News</h3>
+
+
+<ul id="newsList">
+
+
+</ul>
+
+
+</div>
+
+
+
+
+<div class="panel">
+
+
+<h3>Quick Statistics</h3>
+
+
+<div class="stats">
+
+
+<div>
+
+Civil
+
+<strong>312</strong>
+
+</div>
+
+
+
+<div>
+
+Electrical
+
+<strong>145</strong>
+
+</div>
+
+
+
+<div>
+
+Mechanical
+
+<strong>188</strong>
+
+</div>
+
+
+
+<div>
+
+MEP
+
+<strong>204</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+<section class="vendor-workspace">
+
+    <!-- =======================
+         Vendor Database
+    ======================== -->
+    <div class="vendor-left">
+
+        <div class="panel">
+
+            <div class="section-header">
+
+                <h3>Vendor Database</h3>
+
+ <div class="vendor-toolbar">
+
+    <input
+        type="text"
+        id="vendorSearch"
+        placeholder="🔍 Search company..."
+    >
+
+    <select id="categoryFilter">
+
+        <option value="">All Category</option>
+
+        <option>Civil</option>
+        <option>Electrical</option>
+        <option>Mechanical</option>
+        <option>Material</option>
+        <option>Housing</option>
+
+    </select>
+
+    <select id="statusFilter">
+
+        <option value="">All Status</option>
+
+        <option>Approved</option>
+        <option>Pending</option>
+        <option>Review</option>
+
+    </select>
+
+    <button id="addVendorBtn" class="primary-btn">
+
+        + Add Vendor
+
+    </button>
+
+</div>
+
+            <table class="vendor-table">
+
+<thead>
+<tr>
+    <th>Company</th>
+    <th>Category</th>
+    <th>City</th>
+    <th>Documents</th>
+    <th>Status</th>
+    <th>Last Update</th>
+    <th>Action</th>
+</tr>
+</thead>
+
+<tbody id="vendorTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- =======================
+         Vendor Detail
+    ======================== -->
+
+    <div class="vendor-right">
+
+        <div class="panel">
+
+            <h3>Vendor Detail</h3>
+
+            <div class="detail-grid">
+<label>Vendor ID</label>
+
+<div class="vendor-id-box">
+
+    <input id="detailVendorId" readonly>
+
+    <button id="copyVendorIdBtn" type="button">
+        Copy
+    </button>
+
+</div>
+                <input id="detailCompany" placeholder="Company Name">
+
+                <select id="detailCategory">
+                    <option value="">Category</option>
+                    <option>Civil</option>
+                    <option>Electrical</option>
+                    <option>Mechanical</option>
+                    <option>Material</option>
+                    <option>Housing</option>
+                </select>
+
+                <input id="detailCity" placeholder="City">
+
+                <select id="detailStatus">
+                    <option>Approved</option>
+                    <option>Pending</option>
+                    <option>Review</option>
+                </select>
+
+                <input id="detailContact" placeholder="Contact">
+
+                <input id="detailPhone" placeholder="Phone">
+
+                <input id="detailEmail" placeholder="Email">
+                <input id="detailWebsite" placeholder="Website">
+<h3>Documents</h3>
+
+<div class="document-section">
+
+    <div class="document-row">
+
+        <label>Company Profile</label>
+
+        <input type="file"
+               id="companyProfileFile">
+<button
+        type="button"
+        id="viewCompanyProfileBtn">
+        View
+    </button>
+
+    <button
+        type="button"
+        id="removeCompanyProfileBtn">
+        Remove
+    </button>
+    </div>
+
+    <div class="document-row">
+
+        <label>ISO Certificate</label>
+
+    <input
+        type="file"
+        id="isoCertificateFile">
+
+    <button
+        type="button"
+        id="viewIsoBtn">
+        View
+    </button>
+
+    </div>
+
+    <div class="document-row">
+
+        <label>Company Registration</label>
+
+
+    <input
+        type="file"
+        id="companyRegistrationFile">
+
+    <button
+        type="button"
+        id="viewRegistrationBtn">
+        View
+    </button>
+
+    </div>
+
+</div>
+<p class="attachment-info">
+    <strong>Attachments :</strong>
+    <span id="attachmentCount">0 / 3</span>
+</p>
+                <textarea
+                    id="detailRemarks"
+                    rows="4"
+                    placeholder="Remarks"></textarea>
+
+            </div>
+
+            <div class="detail-buttons">
+
+                <button id="saveVendorBtn" class="primary-btn">
+                    Save
+                </button>
+
+                <button id="deleteVendorBtn" class="danger-btn">
+                    Delete
+                </button>
+<button id="prevVendorBtn" class="secondary-btn">
+        ◀ Previous
+    </button>
+
+    <button id="nextVendorBtn" class="secondary-btn">
+        Next ▶
+    </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div id="vendorModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Add Vendor</h2>
+
+        <input id="vendorCompany" placeholder="Company Name">
+
+<select id="vendorCategory">
+
+    <option value="">Select Category</option>
+
+    <option>Civil</option>
+    <option>Housing</option>
+    <option>Architectural</option>
+    <option>Electrical</option>
+    <option>Mechanical</option>
+    <option>Material</option>
+
+</select>
+
+        <input id="vendorCity" placeholder="City">
+<input id="vendorContact" placeholder="Contact Person">
+
+<input id="vendorPhone" placeholder="Phone">
+
+<input id="vendorEmail" placeholder="Email">
+
+<input id="vendorWebsite" placeholder="Website">
+
+        <select id="vendorStatus">
+
+            <option>Approved</option>
+            <option>Pending</option>
+            <option>Review</option>
+
+        </select>
+
+        <div class="modal-buttons">
+
+            <button id="saveVendor" class="primary-btn">
+                Save
+            </button>
+
+            <button id="closeModal">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <p>
+
+        IVIP © 2026
+
+        Iraq Vendor Intelligence Platform
+
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<script src="script.js"></script>
+<script src="vendor-manager.js"></script>
+<script src="import-export.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
+
