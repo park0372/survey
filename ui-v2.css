@@ -952,3 +952,81 @@ footer{margin-top:12px !important;padding:8px !important;font-size:8px !importan
  .content{margin-left:210px !important;padding:14px !important}.sidebar{width:210px !important}
  .header-search{width:160px}.vendor-workspace{grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr) !important}
 }
+
+/* =========================================================
+   IVIP FINAL FIX — COMPACT KPI + VENDOR 2-COLUMN LOCK
+========================================================= */
+
+/* Compact KPI row */
+.kpi{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:8px !important;
+  margin:0 0 10px !important;
+}
+.kpi .card{
+  min-height:68px !important;
+  height:68px !important;
+  padding:9px 11px !important;
+  border-radius:10px !important;
+  gap:8px !important;
+}
+.kpi-card .kpi-icon{
+  width:28px !important;
+  height:28px !important;
+  min-width:28px !important;
+  border-radius:8px !important;
+  margin-top:0 !important;
+}
+.kpi-card .kpi-icon svg{width:14px !important;height:14px !important;}
+.kpi-content h4{font-size:9px !important;margin:0 0 2px !important;}
+.kpi-content h2{font-size:19px !important;margin:0 0 2px !important;line-height:1 !important;}
+.kpi-content span{font-size:7px !important;}
+
+/* Dashboard remains 3 columns */
+.dashboard{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) !important;
+  gap:8px !important;
+  margin-bottom:10px !important;
+}
+.survey-panel,.recent-panel,.news-panel{min-width:0 !important;}
+.stats-panel{min-width:0 !important;}
+
+/* Vendor Database and Vendor Detail MUST stay side-by-side */
+.vendor-workspace{
+  display:grid !important;
+  grid-template-columns:minmax(0,1.65fr) minmax(0,1fr) !important;
+  grid-template-rows:auto !important;
+  gap:8px !important;
+  width:100% !important;
+  min-width:0 !important;
+  align-items:start !important;
+}
+.vendor-workspace > .vendor-left,
+.vendor-workspace > .vendor-right{
+  grid-row:1 !important;
+  min-width:0 !important;
+  width:auto !important;
+}
+.vendor-workspace > .vendor-left{grid-column:1 !important;}
+.vendor-workspace > .vendor-right{grid-column:2 !important;}
+.vendor-left > .panel,.vendor-right > .panel{
+  min-width:0 !important;
+  width:100% !important;
+  overflow:hidden !important;
+}
+.vendor-table{table-layout:fixed !important;}
+.vendor-table th,.vendor-table td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vendor-toolbar{grid-template-columns:minmax(0,1fr) 92px 84px auto !important;}
+
+/* Slightly more compact vendor detail */
+.vendor-right .detail-grid{gap:5px !important;}
+.vendor-right .detail-grid input,
+.vendor-right .detail-grid select,
+.vendor-right .detail-grid textarea{padding:6px 7px !important;font-size:8px !important;}
+.vendor-right .detail-buttons button{height:27px !important;font-size:7px !important;}
+
+@media (max-width:900px){
+  .vendor-workspace{grid-template-columns:minmax(0,1fr) minmax(250px,.85fr) !important;}
+}
