@@ -995,7 +995,7 @@ document.getElementById("companyProfileFile").addEventListener("change", functio
 
     showVendorDetail(selectedVendorIndex);
 
-    this.value = "";
+   
 });
 
 const viewCompanyProfileBtn = document.getElementById("viewCompanyProfileBtn");
