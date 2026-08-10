@@ -523,7 +523,11 @@ function showVendorDetail(index) {
     const v = vendors[index];
 
     if (!v) return;
-document.getElementById("detailVendorId").value = v.id || "";
+const detailVendorId = document.getElementById("detailVendorId");
+
+if (detailVendorId) {
+    detailVendorId.value = v.id || "";
+}
     document.getElementById("detailCompany").value = v.name || "";
     document.getElementById("detailCategory").value = v.category || "";
     document.getElementById("detailCity").value = v.location || "";
