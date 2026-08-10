@@ -321,7 +321,9 @@ window.addEventListener("click", (e) => {
 
 /* Save */
 
-saveVendor.addEventListener("click", () => {
+if (closeModal) {
+    closeModal.addEventListener("click", closeVendorModal);
+}
 
     const company = document.getElementById("vendorCompany").value.trim();
     const category = document.getElementById("vendorCategory").value.trim();
