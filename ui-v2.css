@@ -10,3 +10,17 @@
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.detail-grid input,.detail-grid select{width:100%;height:34px;border:1px solid #cbd5e1;border-radius:7px;padding:0 9px;background:#fff;font-size:9px}.vendor-right .panel>h3:not(:first-child){margin-top:12px;margin-bottom:7px}.document-section{display:flex;flex-direction:column;gap:6px}.document-row{display:grid;grid-template-columns:95px minmax(0,1fr);gap:7px;align-items:center}.document-row label{font-size:8px;color:#64748b}.document-row input[type=file]{width:100%;font-size:8px}.attachments{margin-top:8px;padding-top:8px;border-top:1px solid #edf2f7}.attachment-summary{display:flex;justify-content:space-between;margin-bottom:6px;font-size:8px;color:#64748b}.remarks-field label{display:block;font-size:8px;color:#64748b;margin-bottom:4px}.remarks-field textarea{width:100%;min-height:62px;border:1px solid #cbd5e1;border-radius:7px;padding:8px;font-size:9px;resize:vertical}.detail-buttons{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:8px}.detail-buttons button{height:32px;border-radius:7px;font-size:8px;font-weight:600}.primary-btn{background:#2563eb;color:#fff;border:1px solid #2563eb}.danger-btn{background:#fff5f5;color:#dc2626;border:1px solid #fecaca}.secondary-btn{background:#fff;color:#475569;border:1px solid #cbd5e1}
 footer{margin-top:17px;text-align:center;color:#94a3b8;font-size:8px}
 @media(max-width:1250px){.vendor-workspace{grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr)}.vendor-toolbar{grid-template-columns:minmax(0,1fr) 100px 90px 110px}}@media(max-width:1050px){.sidebar{width:170px}.content{margin-left:170px;width:calc(100% - 170px);padding:16px}.dashboard{grid-template-columns:1fr 1fr}.news-panel{grid-column:1/3}.vendor-workspace{grid-template-columns:1fr}.kpi{grid-template-columns:1fr 1fr}}@media(max-width:700px){.sidebar{position:relative;width:100%;min-height:auto}.content{margin-left:0;width:100%}.kpi,.dashboard{grid-template-columns:1fr}.news-panel{grid-column:auto}.vendor-toolbar{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}}
+#vendorModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.45);
+}
+
+#vendorModal.show,
+#vendorModal.active {
+    display: flex;
+}
