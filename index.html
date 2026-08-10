@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IVIP | Iraq Vendor Intelligence Platform</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ui-v2.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style id="ivip-final-layout">
+.kpi{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;margin:0 0 14px!important}.kpi .card{height:82px!important;min-height:82px!important;padding:14px 16px!important;box-sizing:border-box!important}.kpi .kpi-icon{width:34px!important;height:34px!important;min-width:34px!important}.kpi .kpi-icon svg{width:17px!important;height:17px!important}.kpi .kpi-content h4{font-size:11px!important;margin:0 0 4px!important}.kpi .kpi-content h2{font-size:26px!important;margin:0 0 4px!important;line-height:1!important}.kpi .kpi-content span{font-size:8.5px!important}
+.dashboard{display:grid!important;grid-template-columns:1.05fr 1fr 1.05fr!important;gap:12px!important;margin-bottom:14px!important}.dashboard>.panel{min-width:0!important}.survey-panel,.recent-panel,.news-panel{min-height:220px!important}.survey-progress-body{display:grid!important;grid-template-columns:150px 1fr!important;gap:14px!important;align-items:center!important;height:176px!important}.survey-panel .chart-box{height:150px!important;width:150px!important;padding:0!important;margin:0 auto!important}.survey-panel .chart-box canvas{width:150px!important;height:150px!important}.survey-summary{display:grid!important;gap:8px!important}.survey-rate{padding:9px 10px!important;border:1px solid #E8EEF7!important;border-radius:8px!important;background:#F8FAFD!important}.survey-rate strong{display:block!important;font-size:22px!important;line-height:1!important;color:#2563EB!important}.survey-rate span{display:block!important;margin-top:3px!important;font-size:8px!important;color:#64748B!important}.survey-stat{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:7px 9px!important;border:1px solid #EEF2F7!important;border-radius:7px!important;background:#fff!important}.survey-stat span{font-size:8px!important;color:#64748B!important}.survey-stat strong{font-size:12px!important;color:#0F172A!important}.survey-dot{display:inline-block!important;width:7px!important;height:7px!important;border-radius:50%!important;margin-right:5px!important}.survey-dot.approved{background:#3B9FE8!important}.survey-dot.pending{background:#F6A623!important}
+.vendor-workspace{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-start!important;gap:12px!important;width:100%!important}section.vendor-workspace>.vendor-left{display:block!important;flex:1.55 1 0!important;width:0!important;min-width:0!important}section.vendor-workspace>.vendor-right{display:block!important;flex:1 1 0!important;width:0!important;min-width:0!important}section.vendor-workspace>.vendor-left>.panel,section.vendor-workspace>.vendor-right>.panel{width:100%!important;box-sizing:border-box!important}section.vendor-workspace .detail-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}.vendor-toolbar input,.vendor-toolbar select{height:32px!important;font-size:9px!important}.vendor-toolbar .primary-btn,#addVendorBtn{height:32px!important;font-size:9px!important}.vendor-table th{font-size:9px!important;padding:8px 7px!important}.vendor-table td{font-size:9px!important;padding:9px 7px!important}.vendor-table button{height:25px!important;font-size:8px!important}.detail-grid input,.detail-grid select,.detail-grid textarea{font-size:9px!important;padding:8px 9px!important}.document-row label{font-size:8.5px!important}.document-row input[type=file]{font-size:8px!important}.detail-buttons button{height:30px!important;font-size:8px!important}.section-header h3,.vendor-right .panel>h3{font-size:12px!important}
+</style>>
+</head>
+
+
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+    <div class="logo-icon">
+        <i data-lucide="shield-check"></i>
+    </div>
+
+    <div class="logo-text">
+        <h2>IVIP</h2>
+        <p>Vendor Intelligence</p>
+    </div>
+
+</div>
+
+
+<nav>
+
+<ul>
+
+<li class="active">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Dashboard</span>
+</li>
+
+<li>
+    <i data-lucide="building-2"></i>
+    <span>Companies</span>
+</li>
+
+<li>
+    <i data-lucide="clipboard-list"></i>
+    <span>Survey</span>
+</li>
+
+<li>
+    <i data-lucide="folder-open"></i>
+    <span>Documents</span>
+</li>
+
+<li>
+    <i data-lucide="newspaper"></i>
+    <span>News</span>
+</li>
+
+<li>
+    <i data-lucide="bar-chart-3"></i>
+    <span>Reports</span>
+</li>
+
+<li>
+    <i data-lucide="settings"></i>
+    <span>Settings</span>
+</li>
+</ul>
+
+</nav>
+
+</div>
+
+
+
+<!-- Main Content -->
+
+<div class="content">
+
+<header class="top-header">
+
+    <div class="title">
+
+        <h1>Dashboard</h1>
+
+        <p>Iraq Vendor Intelligence Platform</p>
+
+    </div>
+
+    <div class="header-right">
+
+        <button class="icon-btn">
+            <i data-lucide="bell"></i>
+        </button>
+
+        <button class="icon-btn">
+            <i data-lucide="search"></i>
+        </button>
+
+        <div class="user-box">
+
+            <div class="avatar">P</div>
+
+            <div>
+                <strong>Mr.Park</strong><br>
+                <span>Administrator</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<div class="top-menu">
+
+
+<input
+type="text"
+placeholder="Search Company..."
+id="searchBox">
+
+
+<div class="profile">
+
+👤 Park
+
+</div>
+
+
+</div>
+
+
+</header>
+
+
+
+
+<!-- KPI Section -->
+<section class="kpi">
+  <div class="card kpi-card kpi-blue">
+    <div class="kpi-icon"><i data-lucide="building-2"></i></div>
+    <div class="kpi-content"><h4>Total Vendors</h4><h2 id="totalVendor">0</h2><span>Registered Companies</span></div>
+  </div>
+  <div class="card kpi-card kpi-green">
+    <div class="kpi-icon"><i data-lucide="clipboard-check"></i></div>
+    <div class="kpi-content"><h4>Survey Completed</h4><h2 id="reviewVendor">0</h2><span>Under Evaluation</span></div>
+  </div>
+  <div class="card kpi-card kpi-orange">
+    <div class="kpi-icon"><i data-lucide="clock-3"></i></div>
+    <div class="kpi-content"><h4>Pending</h4><h2 id="pendingVendor">0</h2><span>Waiting Review</span></div>
+  </div>
+  <div class="card kpi-card kpi-purple">
+    <div class="kpi-icon"><i data-lucide="badge-check"></i></div>
+    <div class="kpi-content"><h4>Approved Vendors</h4><h2 id="approvedVendor">0</h2><span>Ready for Tender</span></div>
+  </div>
+</section>
+
+<!-- Dashboard Area -->
+<section class="dashboard">
+  <div class="panel survey-panel">
+    <h3>Survey Progress</h3>
+    <div class="survey-progress-body">
+      <div class="chart-box"><canvas id="surveyChart"></canvas></div>
+      <div class="survey-summary">
+        <div class="survey-rate"><strong id="surveyRate">0%</strong><span>Approval Progress</span></div>
+        <div class="survey-stat"><span><i class="survey-dot approved"></i>Approved</span><strong id="surveyApproved">0</strong></div>
+        <div class="survey-stat"><span><i class="survey-dot pending"></i>Pending</span><strong id="surveyPending">0</strong></div>
+        <div class="survey-stat"><span>Total Vendors</span><strong id="surveyTotal">0</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel recent-panel">
+    <h3>Recent Companies</h3>
+    <div id="recentCompanies"></div>
+  </div>
+  <div class="panel news-panel">
+    <h3>Latest Iraq Construction News</h3>
+    <ul id="newsList"></ul>
+  </div>
+</section>
+
+<!-- Vendor Workspace: Database and Detail on the same row -->
+<section class="vendor-workspace">
+  <div class="vendor-left">
+    <div class="panel">
+      <div class="section-header">
+        <h3>Vendor Database</h3>
+        <div class="vendor-toolbar">
+          <input type="text" id="vendorSearch" placeholder="🔍 Search company...">
+          <select id="categoryFilter">
+            <option value="">All Category</option><option>Civil</option><option>Electrical</option><option>Mechanical</option><option>Material</option><option>Housing</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">All Status</option><option>Approved</option><option>Pending</option><option>Review</option>
+          </select>
+          <button id="addVendorBtn" class="primary-btn">+ Add Vendor</button>
+        </div>
+      </div>
+      <table class="vendor-table">
+        <thead><tr><th>Company</th><th>Category</th><th>City</th><th>Documents</th><th>Status</th><th>Last Update</th><th>Action</th></tr></thead>
+        <tbody id="vendorTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="vendor-right">
+    <div class="panel">
+      <h3>Vendor Detail</h3>
+      <div class="detail-grid">
+        <input id="detailCompany" placeholder="Company Name">
+        <select id="detailCategory"><option value="">Category</option><option>Civil</option><option>Electrical</option><option>Mechanical</option><option>Material</option><option>Housing</option></select>
+        <input id="detailCity" placeholder="City">
+        <select id="detailStatus"><option>Approved</option><option>Pending</option><option>Review</option></select>
+        <input id="detailContact" placeholder="Contact">
+        <input id="detailPhone" placeholder="Phone">
+        <input id="detailEmail" placeholder="Email">
+        <input id="detailWebsite" placeholder="Website">
+      </div>
+      <h3>Documents</h3>
+      <div class="document-section">
+        <div class="document-row"><label>Company Profile</label><input type="file" id="companyProfileFile"><span id="companyProfileName" class="selected-file-name">선택된 파일 없음</span></div>
+        <div class="document-row"><label>ISO Certificate</label><input type="file" id="isoCertificateFile"><span id="isoCertificateName" class="selected-file-name">선택된 파일 없음</span></div>
+        <div class="document-row"><label>Company Registration</label><input type="file" id="companyRegistrationFile"><span id="companyRegistrationName" class="selected-file-name">선택된 파일 없음</span></div>
+      </div>
+      <div class="attachments">
+  <div class="attachment-summary"><span>Attachments</span><b id="attachmentCount">0 / 3</b></div>
+  <div class="remarks-field">
+    <label for="detailRemarks">Remarks</label>
+    <textarea id="detailRemarks" rows="3" placeholder="Enter vendor remarks..."></textarea>
+  </div>
+</div>
+      <div class="detail-buttons">
+        <button id="saveVendorBtn" class="primary-btn">Save</button>
+        <button id="deleteVendorBtn" class="danger-btn">Delete</button>
+        <button id="prevVendorBtn" class="secondary-btn">◀ Previous</button>
+        <button id="nextVendorBtn" class="secondary-btn">Next ▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="vendorModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Add Vendor</h2>
+
+        <input id="vendorCompany" placeholder="Company Name">
+
+<select id="vendorCategory">
+
+    <option value="">Select Category</option>
+
+    <option>Civil</option>
+    <option>Housing</option>
+    <option>Architectural</option>
+    <option>Electrical</option>
+    <option>Mechanical</option>
+    <option>Material</option>
+
+</select>
+
+        <input id="vendorCity" placeholder="City">
+<input id="vendorContact" placeholder="Contact Person">
+
+<input id="vendorPhone" placeholder="Phone">
+
+<input id="vendorEmail" placeholder="Email">
+
+<input id="vendorWebsite" placeholder="Website">
+
+        <select id="vendorStatus">
+
+            <option>Approved</option>
+            <option>Pending</option>
+            <option>Review</option>
+
+        </select>
+
+        <div class="modal-buttons">
+
+            <button id="saveVendor" class="primary-btn">
+                Save
+            </button>
+
+            <button id="closeModal">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <p>
+
+        IVIP © 2026
+
+        Iraq Vendor Intelligence Platform
+
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<script src="script.js"></script>
+<script src="vendor-manager.js"></script>
+<script src="import-export.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+<script>
+(function(){function updateSurveySummary(){const total=Number(document.getElementById("totalVendor")?.textContent)||0;const approved=Number(document.getElementById("approvedVendor")?.textContent)||0;const pending=Number(document.getElementById("pendingVendor")?.textContent)||0;const rate=total?Math.round(approved/total*100):0;const r=document.getElementById("surveyRate"),a=document.getElementById("surveyApproved"),p=document.getElementById("surveyPending"),t=document.getElementById("surveyTotal");if(r)r.textContent=rate+"%";if(a)a.textContent=approved;if(p)p.textContent=pending;if(t)t.textContent=total;}setTimeout(updateSurveySummary,500);setInterval(updateSurveySummary,1000);})();
+</script>
+</body>
+</html>
+
