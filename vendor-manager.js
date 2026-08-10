@@ -547,6 +547,11 @@ const statusDiv = document.getElementById("documentStatus");
     (docs.companyProfile ? 1 : 0) +
     (docs.isoCertificate ? 1 : 0) +
     (docs.companyRegistration ? 1 : 0);
+        const attachmentCount = document.getElementById("attachmentCount");
+
+if (attachmentCount) {
+    attachmentCount.textContent = `${uploadedCount} / 3`;
+}
         statusDiv.innerHTML = `
 <h4>📂 Documents (${uploadedCount}/3)</h4>
 
