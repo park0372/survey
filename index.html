@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IVIP | Iraq Vendor Intelligence Platform</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ui-v2.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+</head>
+
+
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+    <div class="logo-icon">
+        <i data-lucide="shield-check"></i>
+    </div>
+
+    <div class="logo-text">
+        <h2>IVIP</h2>
+        <p>Vendor Intelligence</p>
+    </div>
+
+</div>
+
+
+<nav>
+
+<ul>
+
+<li class="active">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Dashboard</span>
+</li>
+
+<li>
+    <i data-lucide="building-2"></i>
+    <span>Companies</span>
+</li>
+
+<li>
+    <i data-lucide="clipboard-list"></i>
+    <span>Survey</span>
+</li>
+
+<li>
+    <i data-lucide="folder-open"></i>
+    <span>Documents</span>
+</li>
+
+<li>
+    <i data-lucide="newspaper"></i>
+    <span>News</span>
+</li>
+
+<li>
+    <i data-lucide="bar-chart-3"></i>
+    <span>Reports</span>
+</li>
+
+<li>
+    <i data-lucide="settings"></i>
+    <span>Settings</span>
+</li>
+</ul>
+
+</nav>
+
+</div>
+
+
+
+<!-- Main Content -->
+
+<div class="content">
+
+<header class="top-header">
+
+    <div class="title">
+
+        <h1>Dashboard</h1>
+
+        <p>Iraq Vendor Intelligence Platform</p>
+
+    </div>
+</header>
+<!-- KPI Section -->
+<section class="kpi">
+  <div class="card kpi-card kpi-blue">
+    <div class="kpi-icon"><i data-lucide="building-2"></i></div>
+    <div class="kpi-content"><h4>Total Vendors</h4><h2 id="totalVendor">0</h2><span>Registered Companies</span></div>
+  </div>
+  <div class="card kpi-card kpi-green">
+    <div class="kpi-icon"><i data-lucide="clipboard-check"></i></div>
+    <div class="kpi-content"><h4>Survey Completed</h4><h2 id="reviewVendor">0</h2><span>75% Completion Rate</span></div>
+  </div>
+  <div class="card kpi-card kpi-orange">
+    <div class="kpi-icon"><i data-lucide="clock-3"></i></div>
+    <div class="kpi-content"><h4>Pending</h4><h2 id="pendingVendor">0</h2><span>Waiting Review</span></div>
+  </div>
+  <div class="card kpi-card kpi-purple">
+    <div class="kpi-icon"><i data-lucide="badge-check"></i></div>
+    <div class="kpi-content"><h4>Approved Vendors</h4><h2 id="approvedVendor">0</h2><span>Ready for Tender</span></div>
+  </div>
+</section>
+
+<!-- Dashboard Area -->
+<section class="dashboard">
+  <div class="panel survey-panel">
+    <h3>Survey Progress</h3>
+    <div class="survey-progress-layout">
+      <div class="survey-chart-wrap">
+        <div class="chart-box"><canvas id="surveyChart"></canvas></div>
+      </div>
+      <div class="survey-summary">
+        <div class="approval-percent">
+          <strong id="surveyApprovalPercent">0%</strong>
+          <span>Approval Progress</span>
+        </div>
+        <div class="survey-stat approved-stat">
+          <span><i></i> Approved</span>
+          <b id="surveyApproved">0</b>
+        </div>
+        <div class="survey-stat pending-stat">
+          <span><i></i> Pending</span>
+          <b id="surveyPending">0</b>
+        </div>
+        <div class="survey-stat total-stat">
+          <span>Total Vendors</span>
+          <b id="surveyTotal">0</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel recent-panel">
+    <div class="panel-heading"><h3>Recent Companies</h3><button id="viewAllCompanies" class="text-link" type="button">View all companies →</button></div>
+    <div id="recentCompanies"></div>
+  </div>
+  <div class="panel news-panel">
+    <div class="panel-heading"><h3>Latest Iraq Construction News</h3><button id="viewAllNews" class="text-link" type="button">View all →</button></div>
+    <ul id="newsList"></ul>
+  </div>
+</section>
+<!-- Vendor Workspace: Database and Detail on the same row -->
+<section class="vendor-workspace">
+  <div class="vendor-left">
+    <div class="panel">
+      <div class="section-header">
+        <h3>Vendor Database</h3>
+        <div class="vendor-toolbar">
+          <div class="vendor-search-wrap"><i data-lucide="search"></i><input type="text" id="vendorSearch" placeholder="Search company..."></div>
+          <select id="categoryFilter">
+            <option value="">All Category</option><option>Civil</option><option>Electrical</option><option>Mechanical</option><option>Material</option><option>Housing</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">All Status</option><option>Approved</option><option>Pending</option><option>Review</option>
+          </select>
+          <button id="addVendorBtn" class="primary-btn">+ Add Vendor</button>
+        </div>
+      </div>
+      <table class="vendor-table">
+        <thead><tr><th>Company</th><th>Category</th><th>City</th><th>Documents</th><th>Status</th><th>Last Update</th><th>Action</th></tr></thead>
+        <tbody id="vendorTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="vendor-right">
+    <div class="panel">
+      <h3>Vendor Detail</h3>
+      <div class="detail-grid">
+        <input id="detailCompany" placeholder="Company Name">
+        <select id="detailCategory"><option value="">Category</option><option>Civil</option><option>Electrical</option><option>Mechanical</option><option>Material</option><option>Housing</option></select>
+        <input id="detailCity" placeholder="City">
+        <select id="detailStatus"><option>Approved</option><option>Pending</option><option>Review</option></select>
+        <input id="detailContact" placeholder="Contact">
+        <input id="detailPhone" placeholder="Phone">
+        <input id="detailEmail" placeholder="Email">
+        <input id="detailWebsite" placeholder="Website">
+      </div>
+      <h3>Documents</h3>
+      <div class="document-section">
+        <div class="document-row"><label>Company Profile</label><input type="file" id="companyProfileFile"></div>
+        <div class="document-row"><label>ISO Certificate</label><input type="file" id="isoCertificateFile"></div>
+        <div class="document-row"><label>Company Registration</label><input type="file" id="companyRegistrationFile"></div>
+      </div>
+      <div class="attachments">
+  <div class="attachment-summary"><span>Attachments</span><b id="attachmentCount">0 / 3</b></div>
+  <div class="remarks-field">
+    <label for="detailRemarks">Remarks</label>
+    <textarea id="detailRemarks" rows="3" placeholder="Enter vendor remarks..."></textarea>
+  </div>
+</div>
+      <div class="detail-buttons">
+        <button id="saveVendorBtn" class="primary-btn">Save</button>
+        <button id="deleteVendorBtn" class="danger-btn">Delete</button>
+        <button id="prevVendorBtn" class="secondary-btn">◀ Previous</button>
+        <button id="nextVendorBtn" class="secondary-btn">Next ▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+
+    <p>
+
+        IVIP © 2026
+
+        Iraq Vendor Intelligence Platform
+
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<!-- Add / Edit Vendor Modal -->
+<div id="vendorModal" class="vendor-modal" aria-hidden="true">
+  <div class="vendor-modal-card">
+    <div class="vendor-modal-header">
+      <div>
+        <span class="vendor-modal-eyebrow">VENDOR MANAGEMENT</span>
+        <h2 id="vendorModalTitle">Add Vendor</h2>
+        <p>Register a new vendor company</p>
+      </div>
+      <button id="closeModal" class="vendor-modal-close" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="vendor-modal-body">
+      <div class="vendor-form-grid">
+        <div class="vendor-field vendor-field-full">
+          <label for="vendorCompany">Company Name</label>
+          <input id="vendorCompany" type="text" placeholder="Enter company name">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorCategory">Category</label>
+          <select id="vendorCategory">
+            <option value="">Select category</option>
+            <option>Civil</option><option>Electrical</option><option>Mechanical</option>
+            <option>Material</option><option>Housing</option>
+          </select>
+        </div>
+        <div class="vendor-field">
+          <label for="vendorCity">City</label>
+          <input id="vendorCity" type="text" placeholder="Enter city">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorContact">Contact Person</label>
+          <input id="vendorContact" type="text" placeholder="Contact person">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorPhone">Phone</label>
+          <input id="vendorPhone" type="text" placeholder="Phone number">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorEmail">Email</label>
+          <input id="vendorEmail" type="email" placeholder="Email address">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorWebsite">Website</label>
+          <input id="vendorWebsite" type="text" placeholder="Website">
+        </div>
+        <div class="vendor-field">
+          <label for="vendorStatus">Status</label>
+          <select id="vendorStatus">
+            <option>Approved</option><option>Pending</option><option>Review</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="vendor-modal-footer">
+      <button id="closeModalBottom" class="vendor-modal-cancel" type="button">Cancel</button>
+      <button id="saveVendor" class="vendor-modal-save" type="button">Save Vendor</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.vendor-modal{display:none;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(15,23,42,.58);backdrop-filter:blur(5px)}
+.vendor-modal-card{width:min(760px,96vw);max-height:90vh;overflow:auto;background:#fff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.24)}
+.vendor-modal-header{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 28px 20px;border-bottom:1px solid #e5e7eb}
+.vendor-modal-eyebrow{display:block;margin-bottom:5px;font-size:10px;font-weight:700;letter-spacing:.12em;color:#2563eb}
+.vendor-modal-header h2{margin:0;font-size:22px;color:#0f172a}
+.vendor-modal-header p{margin:5px 0 0;font-size:12px;color:#64748b}
+.vendor-modal-close{width:34px;height:34px;border:0;border-radius:9px;background:#f1f5f9;color:#475569;font-size:24px;line-height:1;cursor:pointer}
+.vendor-modal-close:hover{background:#e2e8f0}
+.vendor-modal-body{padding:24px 28px}
+.vendor-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.vendor-field-full{grid-column:1/-1}
+.vendor-field label{display:block;margin-bottom:7px;font-size:12px;font-weight:600;color:#475569}
+.vendor-field input,.vendor-field select{width:100%;height:42px;box-sizing:border-box;padding:0 12px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#0f172a;font:inherit;font-size:13px}
+.vendor-field input:focus,.vendor-field select:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+.vendor-modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:17px 28px 22px;border-top:1px solid #e5e7eb}
+.vendor-modal-footer button{min-width:105px;height:40px;padding:0 17px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer}
+.vendor-modal-cancel{border:1px solid #cbd5e1;background:#fff;color:#475569}
+.vendor-modal-save{border:0;background:#2563eb;color:#fff;box-shadow:0 5px 12px rgba(37,99,235,.18)}
+.vendor-modal-save:hover{background:#1d4ed8}
+@media(max-width:700px){.vendor-form-grid{grid-template-columns:1fr}.vendor-field-full{grid-column:auto}.vendor-modal{padding:12px}.vendor-modal-header,.vendor-modal-body,.vendor-modal-footer{padding-left:18px;padding-right:18px}}
+</style>
+
+<script src="script.js"></script>
+<script src="vendor-manager.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  const b=document.getElementById("closeModalBottom"),m=document.getElementById("vendorModal");
+  if(b)b.addEventListener("click",function(){if(m)m.style.display="none";});
+  if(m)m.addEventListener("click",function(e){if(e.target===m)m.style.display="none";});
+});
+</script>
+
+<script src="import-export.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
+
