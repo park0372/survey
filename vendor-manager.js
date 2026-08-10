@@ -255,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Vendor 목록 표시
     renderVendorTable(vendors);
 
-    updateDashboard();
 
     // KPI 갱신 (script.js에 함수가 있으면 실행)
     if (typeof updateVendorKPI === "function") {
