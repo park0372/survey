@@ -1,0 +1,7 @@
+
+/* IVIP — clean base reset. Final visual system is in ui-v2.css */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Inter,"Segoe UI",Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
