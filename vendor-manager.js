@@ -303,7 +303,7 @@ window.addEventListener("click", (e) => {
 
 /* Save */
 
-if (saveVendor) saveVendor.addEventListener("click", () => {
+saveVendor.addEventListener("click", () => {
 
     const company = document.getElementById("vendorCompany").value.trim();
     const category = document.getElementById("vendorCategory").value.trim();
@@ -549,28 +549,9 @@ const statusDiv = document.getElementById("documentStatus");
     (docs.companyRegistration ? 1 : 0);
         const attachmentCount = document.getElementById("attachmentCount");
 
-        if (attachmentCount) {
-            attachmentCount.textContent = `${uploadedCount} / 3`;
-        }
-
-        const companyProfileName = document.getElementById("companyProfileName");
-        const isoCertificateName = document.getElementById("isoCertificateName");
-        const companyRegistrationName = document.getElementById("companyRegistrationName");
-
-        if (companyProfileName) {
-            companyProfileName.textContent =
-                docs.companyProfile || "선택된 파일 없음";
-        }
-
-        if (isoCertificateName) {
-            isoCertificateName.textContent =
-                docs.isoCertificate || "선택된 파일 없음";
-        }
-
-        if (companyRegistrationName) {
-            companyRegistrationName.textContent =
-                docs.companyRegistration || "선택된 파일 없음";
-        }
+if (attachmentCount) {
+    attachmentCount.textContent = `${uploadedCount} / 3`;
+}
         statusDiv.innerHTML = `
 <h4>📂 Documents (${uploadedCount}/3)</h4>
 
@@ -643,6 +624,47 @@ if (nextVendorBtn) nextVendorBtn.addEventListener("click", showNextVendor);
 
 updateVendorNavigation();
 
+const historyDiv = document.getElementById("documentHistory");
+
+if (historyDiv) {
+
+    const history = v.documentHistory || [];
+
+    if (history.length === 0) {
+
+        historyDiv.innerHTML = `
+            <h4>Document History</h4>
+            <p>No history.</p>
+        `;
+
+    } else {
+
+        historyDiv.innerHTML = `
+            <h4>Document History</h4>
+
+            <table class="history-table">
+
+                <tr>
+                    <th>Date</th>
+                    <th>Company Profile</th>
+                    <th>ISO</th>
+                    <th>Registration</th>
+                </tr>
+
+                ${history.map(h=>`
+                <tr>
+                    <td>${h.date}</td>
+                    <td>${h.companyProfile||"-"}</td>
+                    <td>${h.isoCertificate||"-"}</td>
+                    <td>${h.companyRegistration||"-"}</td>
+                </tr>
+                `).join("")}
+
+            </table>
+        `;
+    }
+
+}
 document.getElementById("saveVendorBtn").addEventListener("click", saveVendorDetail);
 function saveVendorDetail() {
 
@@ -724,62 +746,55 @@ function saveDocuments() {
         vendors[selectedVendorIndex].documents = {};
     }
 
-    const docs = vendors[selectedVendorIndex].documents;
-
-    const companyProfileInput = document.getElementById("companyProfileFile");
-    const isoCertificateInput = document.getElementById("isoCertificateFile");
-    const companyRegistrationInput = document.getElementById("companyRegistrationFile");
-
-    const companyProfile = companyProfileInput && companyProfileInput.files[0];
-    const isoCertificate = isoCertificateInput && isoCertificateInput.files[0];
-    const companyRegistration = companyRegistrationInput && companyRegistrationInput.files[0];
+    // Company Profile
+    const companyProfile =
+        document.getElementById("companyProfileFile").files[0];
 
     if (companyProfile) {
-        docs.companyProfile = companyProfile.name;
-        docs.companyProfileURL = URL.createObjectURL(companyProfile);
+        vendors[selectedVendorIndex].documents.companyProfile =
+            companyProfile.name;
+        vendors[selectedVendorIndex].documents.companyProfileURL =
+    URL.createObjectURL(companyProfile);
 
-        const nameEl = document.getElementById("companyProfileName");
-        if (nameEl) nameEl.textContent = companyProfile.name;
+        document.getElementById("companyProfileName").textContent =
+            companyProfile.name;
     }
+    // ISO Certificate
+const isoCertificate =
+    document.getElementById("isoCertificateFile").files[0];
 
-    if (isoCertificate) {
-        docs.isoCertificate = isoCertificate.name;
-        docs.isoCertificateURL = URL.createObjectURL(isoCertificate);
-
-        const nameEl = document.getElementById("isoCertificateName");
-        if (nameEl) nameEl.textContent = isoCertificate.name;
-    }
-
-    if (companyRegistration) {
-        docs.companyRegistration = companyRegistration.name;
-        docs.companyRegistrationURL = URL.createObjectURL(companyRegistration);
-
-        const nameEl = document.getElementById("companyRegistrationName");
-        if (nameEl) nameEl.textContent = companyRegistration.name;
-    }
-
-    vendors[selectedVendorIndex].lastUpdate =
-        new Date().toISOString().split("T")[0];
-
-    localStorage.setItem("vendors", JSON.stringify(vendors));
-
-    renderVendorTable(vendors);
-
-    const count =
-        (docs.companyProfile ? 1 : 0) +
-        (docs.isoCertificate ? 1 : 0) +
-        (docs.companyRegistration ? 1 : 0);
-
-    const attachmentCount = document.getElementById("attachmentCount");
-    if (attachmentCount) {
-        attachmentCount.textContent = `${count} / 3`;
-    }
-
-    showVendorDetail(selectedVendorIndex);
-
-    alert("Document Saved");
+if (isoCertificate) {
+    vendors[selectedVendorIndex].documents.isoCertificate =
+        isoCertificate.name;
+vendors[selectedVendorIndex].documents.isoCertificateURL =
+    URL.createObjectURL(isoCertificate);
+    document.getElementById("isoCertificateName").textContent =
+        isoCertificate.name;
 }
 
+// Company Registration
+const companyRegistration =
+    document.getElementById("companyRegistrationFile").files[0];
+
+if (companyRegistration) {
+    vendors[selectedVendorIndex].documents.companyRegistration =
+        companyRegistration.name;
+vendors[selectedVendorIndex].documents.companyRegistrationURL =
+    URL.createObjectURL(companyRegistration);
+    document.getElementById("companyRegistrationName").textContent =
+        companyRegistration.name;
+}
+vendors[selectedVendorIndex].lastUpdate =
+    new Date().toISOString().split("T")[0];
+    // LocalStorage 저장
+    localStorage.setItem("vendors", JSON.stringify(vendors));
+renderVendorTable(vendors);
+
+if (typeof updateRecentCompanies === "function") {
+    updateRecentCompanies();
+    alert("Document Saved");
+}
+}
 // ============================================
 // Export Vendor List (CSV)
 // ============================================
@@ -958,23 +973,17 @@ function updateDashboard() {
         v.approval === "Rejected"
     ).length;
 
-    if (document.getElementById("totalVendor")) document.getElementById("totalVendor").textContent = total;
-    if (document.getElementById("reviewVendor")) document.getElementById("reviewVendor").textContent = reviewed;
-    if (document.getElementById("pendingVendor")) document.getElementById("pendingVendor").textContent = pending;
-    if (document.getElementById("approvedVendor")) document.getElementById("approvedVendor").textContent = approved;
+    document.getElementById("totalVendor").textContent = total;
+    document.getElementById("reviewVendor").textContent = reviewed;
+    document.getElementById("pendingVendor").textContent = pending;
+    document.getElementById("approvedVendor").textContent = approved;
 
 }
-// ============================================
-// Vendor Document File Selection
-// ============================================
-
 function handleDocumentFile(inputId, documentKey, nameElementId) {
-
     const input = document.getElementById(inputId);
     if (!input) return;
 
     input.addEventListener("change", function () {
-
         if (selectedVendorIndex === null) {
             alert("먼저 Vendor를 선택하세요.");
             this.value = "";
@@ -989,14 +998,11 @@ function handleDocumentFile(inputId, documentKey, nameElementId) {
         }
 
         const docs = vendors[selectedVendorIndex].documents;
-
         docs[documentKey] = file.name;
         docs[documentKey + "URL"] = URL.createObjectURL(file);
 
         const nameElement = document.getElementById(nameElementId);
-        if (nameElement) {
-            nameElement.textContent = file.name;
-        }
+        if (nameElement) nameElement.textContent = file.name;
 
         const count =
             (docs.companyProfile ? 1 : 0) +
@@ -1004,37 +1010,15 @@ function handleDocumentFile(inputId, documentKey, nameElementId) {
             (docs.companyRegistration ? 1 : 0);
 
         const attachmentCount = document.getElementById("attachmentCount");
-        if (attachmentCount) {
-            attachmentCount.textContent = `${count} / 3`;
-        }
+        if (attachmentCount) attachmentCount.textContent = `${count} / 3`;
 
         localStorage.setItem("vendors", JSON.stringify(vendors));
-
-        renderVendorTable(vendors);
-        showVendorDetail(selectedVendorIndex);
-
-        // Do not clear this.value.
-        // The selected filename must remain visible.
     });
 }
 
-handleDocumentFile(
-    "companyProfileFile",
-    "companyProfile",
-    "companyProfileName"
-);
-
-handleDocumentFile(
-    "isoCertificateFile",
-    "isoCertificate",
-    "isoCertificateName"
-);
-
-handleDocumentFile(
-    "companyRegistrationFile",
-    "companyRegistration",
-    "companyRegistrationName"
-);
+handleDocumentFile("companyProfileFile", "companyProfile", "companyProfileName");
+handleDocumentFile("isoCertificateFile", "isoCertificate", "isoCertificateName");
+handleDocumentFile("companyRegistrationFile", "companyRegistration", "companyRegistrationName");
 
 const viewCompanyProfileBtn = document.getElementById("viewCompanyProfileBtn");
 
