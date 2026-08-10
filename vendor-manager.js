@@ -997,7 +997,31 @@ document.getElementById("companyProfileFile").addEventListener("change", functio
 
    
 });
+const isoCertificateFile = document.getElementById("isoCertificateFile");
 
+if (isoCertificateFile) {
+    isoCertificateFile.addEventListener("change", function () {
+
+        if (selectedVendorIndex === null) {
+            alert("먼저 Vendor를 선택하세요.");
+            this.value = "";
+            return;
+        }
+
+        const file = this.files[0];
+        if (!file) return;
+
+        if (!vendors[selectedVendorIndex].documents) {
+            vendors[selectedVendorIndex].documents = {};
+        }
+
+        vendors[selectedVendorIndex].documents.isoCertificate = file.name;
+
+        localStorage.setItem("vendors", JSON.stringify(vendors));
+
+        showVendorDetail(selectedVendorIndex);
+    });
+}
 const viewCompanyProfileBtn = document.getElementById("viewCompanyProfileBtn");
 
 if (viewCompanyProfileBtn) {
