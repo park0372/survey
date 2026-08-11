@@ -1,0 +1,5 @@
+[
+  {"id":"V001","name":"ABC Electrical Trading","category":"Electrical","city":"Baghdad","approval":"Approved"},
+  {"id":"V002","name":"XYZ Mechanical Supplier","category":"Mechanical","city":"Basra","approval":"Pending"},
+  {"id":"V003","name":"Iraq Steel Company","category":"Material","city":"Najaf","approval":"Approved"}
+]
